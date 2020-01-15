@@ -56,7 +56,7 @@ public class ShipServiceImpl implements ShipService{
             if (yearBefore != null && yearBefore.compareTo(calendar.get(Calendar.YEAR)) <= 0) return;
              */
             if (dateAfter  != null && ship.getProdDate().before(dateAfter)) return;
-            if (dateBefore != null && !ship.getProdDate().before(dateBefore)) return;
+            if (dateBefore != null && ship.getProdDate().after(dateBefore)) return;
 
             if (isUsed != null && !isUsed.equals(ship.getUsed())) return;
             if (minSpeed != null && minSpeed.compareTo(ship.getSpeed()) > 0) return;
