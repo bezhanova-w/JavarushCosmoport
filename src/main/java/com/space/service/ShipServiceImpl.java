@@ -32,7 +32,7 @@ public class ShipServiceImpl implements ShipService{
                                Double minRating,
                                Double maxRating) {
         List<Ship> ships = new ArrayList<Ship>();
-
+/*
         Calendar calendar = Calendar.getInstance();
         if (after != null) {
             calendar.setTimeInMillis(after);
@@ -42,15 +42,21 @@ public class ShipServiceImpl implements ShipService{
             calendar.setTimeInMillis(before);
         }
         final Integer yearBefore = before == null ? null : calendar.get(Calendar.YEAR);
+*/
+        final Date dateAfter = after == null ? null : new Date(after);
+        final Date dateBefore = before == null ? null : new Date(before);
 
         shipRepository.findAll().forEach((ship -> {
             if (name != null && !ship.getName().contains(name)) return;
             if (planet != null && !ship.getPlanet().contains(planet)) return;
             if (shipType != null && shipType != ship.getShipType()) return;
 
-            calendar.setTime(ship.getProdDate());
+            /*calendar.setTime(ship.getProdDate());
             if (yearAfter != null && yearAfter.compareTo(calendar.get(Calendar.YEAR)) > 0) return;
             if (yearBefore != null && yearBefore.compareTo(calendar.get(Calendar.YEAR)) <= 0) return;
+             */
+            if (dateAfter  != null && ship.getProdDate().before(dateAfter)) return;
+            if (dateBefore != null && !ship.getProdDate().before(dateBefore)) return;
 
             if (isUsed != null && !isUsed.equals(ship.getUsed())) return;
             if (minSpeed != null && minSpeed.compareTo(ship.getSpeed()) > 0) return;
